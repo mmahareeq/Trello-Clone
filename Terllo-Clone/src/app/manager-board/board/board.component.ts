@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable} from 'rxjs';
+
+import {AppState } from 'src/app/ngrx-store/board-column.state.ts';
+import { Column } from '../models/column.model';
 
 @Component({
   selector: 'app-board',
@@ -6,10 +11,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-
-  constructor() { }
+  
+  board!: Observable<{columns: column[]}>
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.board = this.store.select('board');
   }
 
 }
